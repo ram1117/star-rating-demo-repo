@@ -1,8 +1,11 @@
 import React from 'react';
 import Star from './Star';
+import useBreakPoints from '@/app/hooks/useBreakPoints';
 
-interface StarsWrapperProps {
+interface StarRatingsProps {
   rating: number;
+  imageSize?: number;
+  responsiveSizes?: { [key: string]: number };
   containerClassName?: string;
   containerStyle?: {};
   starClassName?: string;
@@ -13,8 +16,10 @@ interface StarsWrapperProps {
   concise?: boolean;
 }
 
-const StarsWrapper = ({
+const StarRatings = ({
   rating,
+  imageSize = 18,
+  responsiveSizes = {},
   containerClassName = '',
   containerStyle = {},
   starClassName = '',
@@ -23,9 +28,9 @@ const StarsWrapper = ({
   starStrokeColor = 'black',
   starStrokeWidth = 0.5,
   concise = false,
-}: StarsWrapperProps) => {
+}: StarRatingsProps) => {
   const ratingArr = [];
-  const limit = concise ? (rating) : 5;
+  const limit = concise ? rating : 5;
 
   for (let i = 0; i < limit; i++) {
     if (rating > 0) {
@@ -41,12 +46,18 @@ const StarsWrapper = ({
     }
   }
 
+  const { active } = useBreakPoints();
+  const starSize =
+    Object.keys(responsiveSizes).length === 0
+      ? imageSize
+      : responsiveSizes[active];
+
   return (
     <div className={containerClassName} style={containerStyle}>
       {ratingArr.map((offsetValue, index) => (
         <Star
           key={`${offsetValue}${index}`}
-          imageSize={36}
+          imageSize={starSize}
           starStrokeColor={starStrokeColor}
           starFillColor={starFillColor}
           starClassName={starClassName}
@@ -59,4 +70,4 @@ const StarsWrapper = ({
   );
 };
 
-export default StarsWrapper;
+export default StarRatings;
