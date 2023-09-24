@@ -1,6 +1,4 @@
-'use client';
-
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Star from './Star';
 
 interface StarsWrapperProps {
@@ -9,8 +7,10 @@ interface StarsWrapperProps {
   containerStyle?: {};
   starClassName?: string;
   starStyle?: {};
-  starFillColor?: {};
-  starStrokeColor?: {};
+  starFillColor?: string;
+  starStrokeColor?: string;
+  starStrokeWidth?: number;
+  concise?: boolean;
 }
 
 const StarsWrapper = ({
@@ -21,11 +21,13 @@ const StarsWrapper = ({
   starStyle = {},
   starFillColor = 'gold',
   starStrokeColor = 'black',
+  starStrokeWidth = 0.5,
+  concise = false,
 }: StarsWrapperProps) => {
-
-
   const ratingArr = [];
-  for (let i = 1; i <= 5; i++) {
+  const limit = concise ? (rating) : 5;
+
+  for (let i = 0; i < limit; i++) {
     if (rating > 0) {
       if (rating < 1) {
         ratingArr.push(Math.floor(rating * 100));
@@ -38,18 +40,19 @@ const StarsWrapper = ({
       ratingArr.push(0);
     }
   }
+
   return (
     <div className={containerClassName} style={containerStyle}>
-      {ratingArr.map((offsetValue,index) => (
+      {ratingArr.map((offsetValue, index) => (
         <Star
           key={`${offsetValue}${index}`}
-          height={36}
-          width={36}
+          imageSize={36}
           starStrokeColor={starStrokeColor}
           starFillColor={starFillColor}
           starClassName={starClassName}
           starStyle={starStyle}
           offSetValue={offsetValue}
+          starStrokeWidth={starStrokeWidth}
         />
       ))}
     </div>
