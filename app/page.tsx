@@ -1,9 +1,6 @@
-import styles from './page.module.css';
-import Star from '@/components/star/Star';
+import React from 'react';
+import StarsWrapper from '@/components/StarsWrapper';
 
 export default function Home() {
-  return (
-  <div className={`${styles['main-container']}`}>
-    <Star height={48} width={48} stroke='black' fill='gold' style={{border:'2px solid black'}} />
-  </div>);
+  return <StarsWrapper rating={4.1} />;
 }
