@@ -1,6 +1,5 @@
 import React from 'react';
 import Star from './Star';
-import useBreakPoints from '@/app/hooks/useBreakPoints';
 
 interface StarRatingsProps {
   rating: number;
@@ -18,10 +17,8 @@ interface StarRatingsProps {
 
 const StarRatings = ({
   rating,
-  imageSize = 18,
-  responsiveSizes = {},
   containerClassName = '',
-  containerStyle = {},
+  containerStyle = {height:24,width:24},
   starClassName = '',
   starStyle = {},
   starFillColor = 'gold',
@@ -46,25 +43,24 @@ const StarRatings = ({
     }
   }
 
-  const { active } = useBreakPoints();
-  const starSize =
-    Object.keys(responsiveSizes).length === 0
-      ? imageSize
-      : responsiveSizes[active];
-
   return (
-    <div className={containerClassName} style={containerStyle}>
+    <div style={{display:'flex',flexDirection:'row'}}>
       {ratingArr.map((offsetValue, index) => (
-        <Star
+        <div
+          className={containerClassName}
+          style={containerStyle}
           key={`${offsetValue}${index}`}
-          imageSize={starSize}
-          starStrokeColor={starStrokeColor}
-          starFillColor={starFillColor}
-          starClassName={starClassName}
-          starStyle={starStyle}
-          offSetValue={offsetValue}
-          starStrokeWidth={starStrokeWidth}
-        />
+        >
+          <Star
+            
+            starStrokeColor={starStrokeColor}
+            starFillColor={starFillColor}
+            starClassName={starClassName}
+            starStyle={starStyle}
+            offSetValue={offsetValue}
+            starStrokeWidth={starStrokeWidth}
+          />
+        </div>
       ))}
     </div>
   );

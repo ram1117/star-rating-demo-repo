@@ -1,8 +1,6 @@
 import React from 'react';
-import useMediaQuery from '@/app/hooks/useMediaQuery';
 
 interface StarProps {
-  imageSize?: number;
   offSetValue: number;
   starClassName?: string;
   starStrokeColor?: {};
@@ -12,7 +10,6 @@ interface StarProps {
 }
 
 const Star = ({
-  imageSize,
   starClassName = '',
   starStrokeColor,
   starStrokeWidth,
@@ -23,8 +20,6 @@ const Star = ({
   
   return (
     <svg
-      height={imageSize}
-      width={imageSize}
       className={starClassName}
       style={{ ...starStyle, margin: '1px' }}
       viewBox={`0 0 25 25`}
